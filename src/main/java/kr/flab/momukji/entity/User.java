@@ -1,41 +1,36 @@
 package kr.flab.momukji.entity;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Table
 @Getter
-@Setter
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
 public class User {
     @Id
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private Long id;
 
     @Column(name = "email", length = 100, unique = true, nullable = false)
     private String email;
@@ -50,14 +45,20 @@ public class User {
     private String address;
 
     @ColumnDefault("0")
-    @Column(name = "money", length = 100, nullable = false)
+    @Column(name = "money", nullable = false)
     private Long money;
 
     @ColumnDefault("false")
     @Column(name = "deleted", nullable = false)
-    private boolean deleted;
+    private Boolean deleted;
 
-    // TODO store_id, rider_id FK 추가
+    @OneToOne(targetEntity = Store.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "store_id", nullable = true)
+    private Store store;
+
+    @OneToOne(targetEntity = Rider.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "rider_id", nullable = true)
+    private Store rider;
 
     @CreationTimestamp
     @Column(name = "created_timestamp", nullable = false)
@@ -65,7 +66,7 @@ public class User {
 
     @UpdateTimestamp
     @Column(name = "updated_timestamp", nullable = false)
-    private LocalDate updatedTimestamp;
+    private LocalDateTime updatedTimestamp;
 
     @ManyToMany
     @JoinTable(
