@@ -1,0 +1,16 @@
+{
+	"properties": [
+	  {
+	    "name": "spring.jpa.hibernate.generate-ddl",
+	    "type": "java.lang.Boolean"
+	  },
+	  {
+	    "name": "taco.discount.codes",
+	    "type": "java.util.Map<String, Integer>",
+	    "description": "A map of discount codes to a discount percentage."
+	  },
+      {
+        "name": "jwt"
+      }
+	]
+}
