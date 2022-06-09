@@ -15,13 +15,17 @@ import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Table
+@Table(name = "Orders")
 @Getter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Order {
     @Id
     @Column(name = "order_id")
