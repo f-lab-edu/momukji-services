@@ -47,12 +47,12 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public UserDto getUserWithAuthorities(String email) {
-        return UserDto.from(userRepository.findOneWithAuthoritiesByEmail(email).orElse(null));
+    public User getUserWithAuthorities(String email) {
+        return userRepository.findOneWithAuthoritiesByEmail(email).orElse(null);
     }
 
     @Transactional(readOnly = true)
-    public UserDto getMyUserWithAuthorities() {
-        return UserDto.from(SecurityUtil.getCurrentUsername().flatMap(userRepository::findOneWithAuthoritiesByEmail).orElse(null));
+    public User getMyUserWithAuthorities() {
+        return SecurityUtil.getCurrentUsername().flatMap(userRepository::findOneWithAuthoritiesByEmail).orElse(null);
     }
 }
