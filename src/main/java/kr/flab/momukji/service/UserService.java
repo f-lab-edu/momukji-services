@@ -1,7 +1,10 @@
 package kr.flab.momukji.service;
 
 import java.util.Collections;
-import kr.flab.momukji.dto.UserDto;
+
+import kr.flab.momukji.dto.request.UserDto;
+import kr.flab.momukji.dto.response.common.CommonResponse;
+import kr.flab.momukji.dto.response.common.ResultCode;
 import kr.flab.momukji.entity.Authority;
 import kr.flab.momukji.entity.User;
 import kr.flab.momukji.repository.UserRepository;
@@ -20,9 +23,9 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public UserDto signup(UserDto userDto) {
+    public CommonResponse signup(UserDto userDto) {
         if (userRepository.findOneWithAuthoritiesByEmail(userDto.getEmail()).orElse(null) != null) {
-            throw new RuntimeException("이미 가입되어 있는 유저입니다.");
+            return new CommonResponse(ResultCode.DUPLICATED_EMAIL);
         }
 
         Authority authority = Authority.builder()
@@ -38,8 +41,9 @@ public class UserService {
                 .money(0L)
                 .deleted(false)
                 .build();
+        userRepository.save(user);
 
-        return UserDto.from(userRepository.save(user));
+        return new CommonResponse();
     }
 
     @Transactional(readOnly = true)
