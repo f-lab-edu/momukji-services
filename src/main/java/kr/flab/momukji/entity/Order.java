@@ -49,7 +49,7 @@ public class Order {
     @Column(name = "is_delivery", nullable = false)
     private Boolean isDelivery;
 
-    @Column(name = "message", length = 100, nullable = false)
+    @Column(name = "message", length = 100, nullable = true)
     private String message;
 
     @Column(name = "estimated_minutes", nullable = true)
