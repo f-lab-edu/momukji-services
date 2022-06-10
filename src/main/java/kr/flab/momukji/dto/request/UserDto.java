@@ -1,4 +1,4 @@
-package kr.flab.momukji.dto;
+package kr.flab.momukji.dto.request;
 
 import java.util.stream.Collectors;
 import java.util.Set;

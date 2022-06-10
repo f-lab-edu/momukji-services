@@ -1,4 +1,4 @@
-package kr.flab.momukji.dto;
+package kr.flab.momukji.dto.request;
 
 import lombok.*;
 

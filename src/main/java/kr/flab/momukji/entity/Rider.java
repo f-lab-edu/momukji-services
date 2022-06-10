@@ -13,13 +13,17 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table
 @Getter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Rider {
     @Id
     @Column(name = "rider_id")

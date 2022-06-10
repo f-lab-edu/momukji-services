@@ -2,8 +2,8 @@ package kr.flab.momukji.controller;
 
 import javax.validation.Valid;
 
-import kr.flab.momukji.dto.LoginDto;
-import kr.flab.momukji.dto.TokenDto;
+import kr.flab.momukji.dto.request.LoginDto;
+import kr.flab.momukji.dto.response.TokenDto;
 import kr.flab.momukji.jwt.JwtFilter;
 import kr.flab.momukji.jwt.TokenProvider;
 

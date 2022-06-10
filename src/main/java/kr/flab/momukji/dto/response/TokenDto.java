@@ -1,5 +1,6 @@
-package kr.flab.momukji.dto;
+package kr.flab.momukji.dto.response;
 
+import kr.flab.momukji.dto.response.common.CommonResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,6 +12,6 @@ import lombok.Setter;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class TokenDto {
+public class TokenDto extends CommonResponse {
     private String token;
 }
