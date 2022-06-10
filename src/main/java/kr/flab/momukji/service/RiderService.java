@@ -2,8 +2,12 @@ package kr.flab.momukji.service;
 
 import java.util.Optional;
 
-import org.springframework.stereotype.Service;
+import javax.validation.Valid;
 
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import kr.flab.momukji.dto.request.AcceptRiderDto;
 import kr.flab.momukji.dto.response.common.CommonResponse;
 import kr.flab.momukji.entity.Rider;
 import kr.flab.momukji.repository.RiderRepository;
@@ -17,9 +21,9 @@ public class RiderService {
     
     private final RiderRepository riderRepository;
 
-    public CommonResponse accecptDelivery(Long orderId, Long userId) {
-        Rider rider = getRiderById(userId).get();
-        return orderService.changeOrderInfoForRider(orderId, rider);
+    public CommonResponse accecptDelivery(@Valid @RequestBody AcceptRiderDto acceptRiderDto) {
+        Rider rider = getRiderById(acceptRiderDto.getUserId()).get();
+        return orderService.changeOrderInfoForRider(acceptRiderDto.getOrderId(), rider);
     }
 
     public Optional<Rider> getRiderById(Long riderId) {

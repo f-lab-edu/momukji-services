@@ -62,7 +62,7 @@ public class OrderService {
     public CommonResponse changeOrderInfoForRider(Long orderId, Rider rider) {
         Order order = getOrderById(orderId).get();
         order.setRider(rider);
-        order.setStatus(OrderStatus.RIDERACCETED.getStatusCode());
+        order.setStatus(OrderStatus.RIDER_ACCEPTED.getStatusCode());
         orderRepository.save(order);
 
         return new CommonResponse();
@@ -73,7 +73,7 @@ public class OrderService {
     }
 
     enum OrderStatus {
-        PENDING(0L), ACCEPTED(1L), COOKED(2L), PICKUPED(3L), COMPLETE(4L),RIDERACCETED(5L), CANCELD(-1L) ;
+        PENDING(0L), ACCEPTED(1L), COOKED(2L), PICKUPED(3L), COMPLETE(4L), RIDER_ACCEPTED(5L), CANCELD(-1L);
 
         private Long statusCode;
 
