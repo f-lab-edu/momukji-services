@@ -22,10 +22,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "Orders")
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -42,6 +44,10 @@ public class Order {
     @ManyToOne(targetEntity = Store.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id", nullable = false)
     private Store store;
+
+    @ManyToOne(targetEntity = Rider.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "rider_id", nullable = false)
+    private Rider rider;
 
     @Column(name = "status", nullable = false)
     private Long status;
