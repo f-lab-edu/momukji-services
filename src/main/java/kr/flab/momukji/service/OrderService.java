@@ -14,6 +14,7 @@ import kr.flab.momukji.dto.response.common.CommonResponse;
 import kr.flab.momukji.dto.response.common.ResultCode;
 import kr.flab.momukji.entity.Order;
 import kr.flab.momukji.entity.Product;
+import kr.flab.momukji.entity.Rider;
 import kr.flab.momukji.entity.Store;
 import kr.flab.momukji.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
@@ -58,8 +59,21 @@ public class OrderService {
         return new CommonResponse();
     }
     
+    public CommonResponse changeOrderInfoForRider(Long orderId, Rider rider) {
+        Order order = getOrderById(orderId).get();
+        order.setRider(rider);
+        order.setStatus(OrderStatus.RIDERACCETED.getStatusCode());
+        orderRepository.save(order);
+
+        return new CommonResponse();
+    }
+
+    public Optional<Order> getOrderById(Long orderId) {
+        return orderRepository.findById(orderId);
+    }
+
     enum OrderStatus {
-        PENDING(0L), ACCEPTED(1L), COOKED(2L), PICKUPED(3L), COMPLETE(4L), CANCELD(-1L);
+        PENDING(0L), ACCEPTED(1L), COOKED(2L), PICKUPED(3L), COMPLETE(4L),RIDERACCETED(5L), CANCELD(-1L) ;
 
         private Long statusCode;
 
@@ -71,4 +85,8 @@ public class OrderService {
             return statusCode;
         }
     }
+
+ 
+
+
 }
