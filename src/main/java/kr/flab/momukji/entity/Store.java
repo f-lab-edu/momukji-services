@@ -20,7 +20,6 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Entity
-
 @Table
 @Getter
 @Builder
