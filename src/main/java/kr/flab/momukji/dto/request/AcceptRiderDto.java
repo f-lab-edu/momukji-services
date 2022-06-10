@@ -11,8 +11,5 @@ public class AcceptRiderDto {
 
     @NotNull
     private Long orderId;
-
-    @NotNull
-    private Long userId;
     
 }

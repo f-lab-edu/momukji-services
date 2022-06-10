@@ -17,12 +17,14 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class RiderService {
 
+    private final UserService userService;
     private final OrderService orderService;
     
     private final RiderRepository riderRepository;
 
     public CommonResponse accecptDelivery(@Valid @RequestBody AcceptRiderDto acceptRiderDto) {
-        Rider rider = getRiderById(acceptRiderDto.getUserId()).get();
+      
+        Rider rider = getRiderById(userService.getMyUserWithAuthorities().getId()).get();
         return orderService.changeOrderInfoForRider(acceptRiderDto.getOrderId(), rider);
     }
 
