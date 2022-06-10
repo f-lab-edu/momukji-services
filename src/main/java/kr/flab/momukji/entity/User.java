@@ -62,7 +62,7 @@ public class User {
 
     @OneToOne(targetEntity = Rider.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "rider_id", nullable = true)
-    private Rider rider;
+    private Store rider;
 
     @CreationTimestamp
     @Column(name = "created_timestamp", nullable = false)
