@@ -47,6 +47,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
             .antMatchers("/api/authenticate").permitAll()
             .antMatchers("/api/signup").permitAll()
+            .antMatchers("/swagger-ui/**").permitAll()
+            .antMatchers("/swagger-resources/**").permitAll()
 
             .anyRequest().authenticated()
 
@@ -58,7 +60,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
             .ignoring()
-            .antMatchers("/h2-console/**", "/favicon.ico");
+            .antMatchers("/h2-console/**", "/favicon.ico",
+                            "/v3/api-docs",  "/configuration/ui",
+                            "/swagger-resources", "/configuration/security",
+                            "/swagger-ui.html", "/webjars/**",
+                            "/swagger/**");
     }
     
     @Bean
