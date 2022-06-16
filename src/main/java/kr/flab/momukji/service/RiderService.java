@@ -23,7 +23,6 @@ public class RiderService {
     private final RiderRepository riderRepository;
 
     public CommonResponse accecptDelivery(@Valid @RequestBody AcceptRiderDto acceptRiderDto) {
-      
         Rider rider = getRiderById(userService.getMyUserWithAuthorities().getId()).get();
         return orderService.changeOrderInfoForRider(acceptRiderDto.getOrderId(), rider);
     }

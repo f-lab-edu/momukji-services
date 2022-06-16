@@ -1,5 +1,6 @@
 package kr.flab.momukji.service;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -23,14 +24,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class OrderService {
 
+    private final CommonService commonService;
     private final UserService userService;
-    private final StoreService storeService;
-    private final ProductService productService;
     
     private final OrderRepository orderRepository;
 
     public CommonResponse order(@Valid @RequestBody OrderDto orderDto) {
-        Optional<Store> optStore = storeService.getStoreById(orderDto.getStoreId());
+        Optional<Store> optStore = commonService.getStoreById(orderDto.getStoreId());
         if (optStore.isEmpty()) {
             return new CommonResponse(ResultCode.INVALID_STORE_ID);
         }
@@ -38,7 +38,7 @@ public class OrderService {
 
         Set<Product> products = new HashSet<>();
         for (Long productId : orderDto.getProductIds()) {
-            Optional<Product> optProduct = productService.getProductById(productId);
+            Optional<Product> optProduct = commonService.getProductById(productId);
             if (optProduct.isEmpty()) {
                 return new CommonResponse(ResultCode.INVALID_PRODUCT_ID);
             }
@@ -70,6 +70,21 @@ public class OrderService {
 
     public Optional<Order> getOrderById(Long orderId) {
         return orderRepository.findById(orderId);
+    }
+
+    public boolean updateOrderAccepted(Long orderId, Long estimatedMinutes) {
+        Optional<Order> optOrder = getOrderById(orderId);
+        if (optOrder.isEmpty()) {
+            return false;
+        }
+        
+        Order order = optOrder.get();
+        order.setStatus(OrderStatus.ACCEPTED.getStatusCode());
+        order.setEstimatedMinutes(estimatedMinutes);
+        order.setAcceptedTimestamp(LocalDateTime.now());
+        orderRepository.save(order);
+        
+        return true;
     }
 
     enum OrderStatus {
