@@ -46,7 +46,7 @@ public class Order {
     private Store store;
 
     @ManyToOne(targetEntity = Rider.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "rider_id", nullable = false)
+    @JoinColumn(name = "rider_id", nullable = true)
     private Rider rider;
 
     @Column(name = "status", nullable = false)
