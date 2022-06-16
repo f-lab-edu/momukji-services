@@ -11,11 +11,17 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class StoreService {
+
+    private final OrderService orderService;
     
     private final StoreRepository storeRepository;
 
     public Optional<Store> getStoreById(Long storeId) {
         return storeRepository.findById(storeId);
+    }
+
+    public boolean acceptOrder(Long orderId, Long estimatedMinutes) {
+        return orderService.updateOrderAccepted(orderId, estimatedMinutes);
     }
 
 }
