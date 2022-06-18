@@ -23,13 +23,11 @@ public class RiderService {
     private final RiderRepository riderRepository;
 
     public CommonResponse accecptDelivery(@Valid @RequestBody RiderDto riderDto) {
-      
         Rider rider = getRiderById(userService.getMyUserWithAuthorities().getId()).get();
         return orderService.changeOrderInfoForRider(riderDto.getOrderId(), rider);
     }
 
     public CommonResponse pickUp(@Valid @RequestBody RiderDto riderDto) {
-
         return orderService.pickUp(riderDto.getOrderId());
     }
 

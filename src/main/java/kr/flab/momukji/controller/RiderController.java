@@ -28,7 +28,6 @@ public class RiderController {
     @PutMapping("/pickUpRider")
     @PreAuthorize("hasAnyRole('USER')")
     public CommonResponse pickUp(@RequestBody RiderDto riderDto) {
-        System.out.println(riderDto);
         return riderService.pickUp(riderDto);
     }
 }
