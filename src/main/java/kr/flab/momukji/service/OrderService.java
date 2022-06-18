@@ -1,5 +1,6 @@
 package kr.flab.momukji.service;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -63,6 +64,15 @@ public class OrderService {
         Order order = getOrderById(orderId).get();
         order.setRider(rider);
         order.setStatus(OrderStatus.RIDER_ACCEPTED.getStatusCode());
+        orderRepository.save(order);
+
+        return new CommonResponse();
+    }
+
+    public CommonResponse pickUp(Long orderId) {
+        Order order = getOrderById(orderId).get();
+        order.setStatus(OrderStatus.PICKUPED.getStatusCode());
+        order.setPickupedTimestamp(LocalDateTime.now());
         orderRepository.save(order);
 
         return new CommonResponse();
