@@ -98,6 +98,19 @@ public class OrderService {
     }
     
 
+    public CommonResponse requestRider(Long orderId) {
+        Optional<Order> optOrder = getOrderById(orderId);
+        if (optOrder.isEmpty()) {
+            return new CommonResponse(ResultCode.INVALID_ORDER_ID);
+        }
+        
+        Order order = optOrder.get();
+        order.setStatus(OrderStatus.RIDER_ACCEPTED.getStatusCode());
+        orderRepository.save(order);
+        
+        return new CommonResponse();
+    }
+
     enum OrderStatus {
         PENDING(0L), ACCEPTED(1L), RIDER_REQUESTED(2L), COOKED(3L), RIDER_ACCEPTED(4L), PICKUPED(5L), COMPLETED(4L), CANCELED(-1L);
 

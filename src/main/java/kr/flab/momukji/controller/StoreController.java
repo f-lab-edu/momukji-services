@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.flab.momukji.dto.request.AcceptOrderDto;
+import kr.flab.momukji.dto.request.RequestRiderDto;
 import kr.flab.momukji.dto.response.common.CommonResponse;
 import kr.flab.momukji.service.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -24,4 +25,11 @@ public class StoreController {
     public CommonResponse acceptOrder(@Valid @RequestBody AcceptOrderDto acceptDto) {
         return orderService.acceptOrder(acceptDto.getOrderId(), acceptDto.getEstimatedMinutes());
     }
+
+    @PutMapping("/requestRider")
+    @PreAuthorize("hasAnyRole('USER')")
+    public CommonResponse requestRider(@Valid @RequestBody RequestRiderDto requestDto) {
+        return orderService.requestRider(requestDto.getOrderId());
+    }
+
 }
