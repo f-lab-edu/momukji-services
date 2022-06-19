@@ -24,13 +24,14 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class OrderService {
 
-    private final CommonService commonService;
+    private final StoreService storeService;
+    private final ProductService productService;
     private final UserService userService;
     
     private final OrderRepository orderRepository;
 
     public CommonResponse order(@Valid @RequestBody OrderDto orderDto) {
-        Optional<Store> optStore = commonService.getStoreById(orderDto.getStoreId());
+        Optional<Store> optStore = storeService.getStoreById(orderDto.getStoreId());
         if (optStore.isEmpty()) {
             return new CommonResponse(ResultCode.INVALID_STORE_ID);
         }
@@ -38,7 +39,7 @@ public class OrderService {
 
         Set<Product> products = new HashSet<>();
         for (Long productId : orderDto.getProductIds()) {
-            Optional<Product> optProduct = commonService.getProductById(productId);
+            Optional<Product> optProduct = productService.getProductById(productId);
             if (optProduct.isEmpty()) {
                 return new CommonResponse(ResultCode.INVALID_PRODUCT_ID);
             }
@@ -72,10 +73,10 @@ public class OrderService {
         return orderRepository.findById(orderId);
     }
 
-    public boolean updateOrderAccepted(Long orderId, Long estimatedMinutes) {
+    public CommonResponse acceptOrder(Long orderId, Long estimatedMinutes) {
         Optional<Order> optOrder = getOrderById(orderId);
         if (optOrder.isEmpty()) {
-            return false;
+            return new CommonResponse(ResultCode.INVALID_ORDER_ID);
         }
         
         Order order = optOrder.get();
@@ -84,8 +85,9 @@ public class OrderService {
         order.setAcceptedTimestamp(LocalDateTime.now());
         orderRepository.save(order);
         
-        return true;
+        return new CommonResponse();
     }
+    
 
     enum OrderStatus {
         PENDING(0L), ACCEPTED(1L), COOKED(2L), PICKUPED(3L), COMPLETE(4L), RIDER_ACCEPTED(5L), CANCELD(-1L);

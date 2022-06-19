@@ -10,24 +10,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import kr.flab.momukji.dto.request.AcceptOrderDto;
 import kr.flab.momukji.dto.response.common.CommonResponse;
-import kr.flab.momukji.dto.response.common.ResultCode;
-import kr.flab.momukji.service.StoreService;
+import kr.flab.momukji.service.OrderService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
 public class StoreController {
-    private final StoreService storeService;
+    private final OrderService orderService;
 
     @PutMapping("/acceptOrder")
     @PreAuthorize("hasAnyRole('USER')")
     public CommonResponse acceptOrder(@Valid @RequestBody AcceptOrderDto acceptDto) {
-        final boolean INVALID_ORDER_ID = false;
-        if (storeService.acceptOrder(acceptDto.getOrderId(), acceptDto.getEstimatedMinutes()) == INVALID_ORDER_ID) {
-            return new CommonResponse(ResultCode.INVALID_ORDER_ID);
-        }
-        
-        return new CommonResponse();
+        return orderService.acceptOrder(acceptDto.getOrderId(), acceptDto.getEstimatedMinutes());
     }
 }
