@@ -24,9 +24,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class OrderService {
 
-    private final UserService userService;
     private final StoreService storeService;
     private final ProductService productService;
+    private final UserService userService;
     
     private final OrderRepository orderRepository;
 
@@ -81,6 +81,22 @@ public class OrderService {
     public Optional<Order> getOrderById(Long orderId) {
         return orderRepository.findById(orderId);
     }
+
+    public CommonResponse acceptOrder(Long orderId, Long estimatedMinutes) {
+        Optional<Order> optOrder = getOrderById(orderId);
+        if (optOrder.isEmpty()) {
+            return new CommonResponse(ResultCode.INVALID_ORDER_ID);
+        }
+        
+        Order order = optOrder.get();
+        order.setStatus(OrderStatus.ACCEPTED.getStatusCode());
+        order.setEstimatedMinutes(estimatedMinutes);
+        order.setAcceptedTimestamp(LocalDateTime.now());
+        orderRepository.save(order);
+        
+        return new CommonResponse();
+    }
+    
 
     enum OrderStatus {
         PENDING(0L), ACCEPTED(1L), RIDER_REQUESTED(2L), COOKED(3L), RIDER_ACCEPTED(4L), PICKUPED(5L), COMPLETED(4L), CANCELED(-1L);

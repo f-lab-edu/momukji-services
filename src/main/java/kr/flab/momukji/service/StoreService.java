@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class StoreService {
-    
+
     private final StoreRepository storeRepository;
 
     public Optional<Store> getStoreById(Long storeId) {
