@@ -31,6 +31,10 @@ public class RiderService {
         return orderService.pickUp(riderDto.getOrderId());
     }
 
+    public CommonResponse completeDelivery(@Valid @RequestBody RiderDto riderDto) {
+        return orderService.completeDelivery(riderDto.getOrderId());
+    }
+
     public Optional<Rider> getRiderById(Long riderId) {
         return riderRepository.findById(riderId);
     }

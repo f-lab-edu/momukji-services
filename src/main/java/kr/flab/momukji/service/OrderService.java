@@ -78,6 +78,15 @@ public class OrderService {
         return new CommonResponse();
     }
 
+    public CommonResponse completeDelivery(Long orderId) {
+        Order order = getOrderById(orderId).get();
+        order.setStatus(OrderStatus.COMPLETED.getStatusCode());
+        order.setCompletedTimestamp(LocalDateTime.now());
+        orderRepository.save(order);
+
+        return new CommonResponse();
+    }
+
     public Optional<Order> getOrderById(Long orderId) {
         return orderRepository.findById(orderId);
     }

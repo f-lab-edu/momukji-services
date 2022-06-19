@@ -30,5 +30,11 @@ public class RiderController {
     public CommonResponse pickUp(@RequestBody RiderDto riderDto) {
         return riderService.pickUp(riderDto);
     }
+
+    @PutMapping("/completeDelivery")
+    @PreAuthorize("hasAnyRole('USER')")
+    public CommonResponse completeDelivery(@RequestBody RiderDto riderDto) {
+        return riderService.completeDelivery(riderDto);
+    }
 }
 
