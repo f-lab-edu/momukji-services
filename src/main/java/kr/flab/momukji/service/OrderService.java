@@ -98,17 +98,17 @@ public class OrderService {
     }
     
 
-    public boolean updateRiderRequested(Long orderId) {
+    public CommonResponse requestRider(Long orderId) {
         Optional<Order> optOrder = getOrderById(orderId);
         if (optOrder.isEmpty()) {
-            return false;
+            return new CommonResponse(ResultCode.INVALID_ORDER_ID);
         }
         
         Order order = optOrder.get();
         order.setStatus(OrderStatus.RIDER_ACCEPTED.getStatusCode());
         orderRepository.save(order);
         
-        return true;
+        return new CommonResponse();
     }
 
     enum OrderStatus {
