@@ -7,7 +7,7 @@ import javax.validation.Valid;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import kr.flab.momukji.dto.request.AcceptRiderDto;
+import kr.flab.momukji.dto.request.RiderDto;
 import kr.flab.momukji.dto.response.common.CommonResponse;
 import kr.flab.momukji.entity.Rider;
 import kr.flab.momukji.repository.RiderRepository;
@@ -22,10 +22,13 @@ public class RiderService {
     
     private final RiderRepository riderRepository;
 
-    public CommonResponse accecptDelivery(@Valid @RequestBody AcceptRiderDto acceptRiderDto) {
-      
+    public CommonResponse accecptDelivery(@Valid @RequestBody RiderDto riderDto) {
         Rider rider = getRiderById(userService.getMyUserWithAuthorities().getId()).get();
-        return orderService.changeOrderInfoForRider(acceptRiderDto.getOrderId(), rider);
+        return orderService.changeOrderInfoForRider(riderDto.getOrderId(), rider);
+    }
+
+    public CommonResponse pickUp(@Valid @RequestBody RiderDto riderDto) {
+        return orderService.pickUp(riderDto.getOrderId());
     }
 
     public Optional<Rider> getRiderById(Long riderId) {
