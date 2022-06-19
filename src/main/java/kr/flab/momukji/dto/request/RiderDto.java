@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AcceptRiderDto {
+public class RiderDto {
 
     @NotNull
     private Long orderId;

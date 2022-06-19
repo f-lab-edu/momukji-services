@@ -69,6 +69,15 @@ public class OrderService {
         return new CommonResponse();
     }
 
+    public CommonResponse pickUp(Long orderId) {
+        Order order = getOrderById(orderId).get();
+        order.setStatus(OrderStatus.PICKUPED.getStatusCode());
+        order.setPickupedTimestamp(LocalDateTime.now());
+        orderRepository.save(order);
+
+        return new CommonResponse();
+    }
+
     public Optional<Order> getOrderById(Long orderId) {
         return orderRepository.findById(orderId);
     }
@@ -90,7 +99,7 @@ public class OrderService {
     
 
     enum OrderStatus {
-        PENDING(0L), ACCEPTED(1L), COOKED(2L), PICKUPED(3L), COMPLETE(4L), RIDER_ACCEPTED(5L), CANCELD(-1L);
+        PENDING(0L), ACCEPTED(1L), RIDER_REQUESTED(2L), COOKED(3L), RIDER_ACCEPTED(4L), PICKUPED(5L), COMPLETED(4L), CANCELED(-1L);
 
         private Long statusCode;
 
