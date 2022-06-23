@@ -78,7 +78,7 @@ public class OrderService {
         return new CommonResponse();
     }
 
-    public CommonResponse completeDelivery(Long orderId) {
+    public CommonResponse completeOrder(Long orderId) {
         Order order = getOrderById(orderId).get();
         order.setStatus(OrderStatus.COMPLETED.getStatusCode());
         order.setCompletedTimestamp(LocalDateTime.now());
