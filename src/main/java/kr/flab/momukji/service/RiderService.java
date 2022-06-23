@@ -27,10 +27,6 @@ public class RiderService {
         return orderService.changeOrderInfoForRider(riderDto.getOrderId(), rider);
     }
 
-    public CommonResponse pickUp(@Valid @RequestBody RiderDto riderDto) {
-        return orderService.pickUp(riderDto.getOrderId());
-    }
-
     public Optional<Rider> getRiderById(Long riderId) {
         return riderRepository.findById(riderId);
     }

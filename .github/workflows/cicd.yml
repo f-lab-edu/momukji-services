@@ -25,7 +25,7 @@ jobs:
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.SERVER_URL }}
-        port: ${{ secrets_SERVER_PORT }}
+        port: ${{ secrets.SERVER_PORT }}
         username: ${{ secrets.SERVER_ID }}
         password: ${{ secrets.SERVER_PW }}
         envs: GITHUB_SHA
@@ -40,4 +40,4 @@ jobs:
           docker save momukji-mono:${GITHUB_SHA::7} | ctr -a /run/k3s/containerd/containerd.sock -n=k8s.io images import -
           cd ..
           sh change_version.sh ${GITHUB_SHA::7}
-          kubectl apply -f momukji-mono.yml
+          kubectl apply -f momukji-mono.yaml
