@@ -39,5 +39,6 @@ jobs:
           docker build -t momukji-mono:${GITHUB_SHA::7} .
           docker save momukji-mono:${GITHUB_SHA::7} | ctr -a /run/k3s/containerd/containerd.sock -n=k8s.io images import -
           cd ..
+          kubectl delete -f momukji-mono.yaml
           sh change_version.sh ${GITHUB_SHA::7}
           kubectl apply -f momukji-mono.yaml
