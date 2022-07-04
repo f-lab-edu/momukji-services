@@ -1,0 +1,14 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: user
+
+#스프링 유레카 클라이언트 구축
+eureka:
+  client:
+    register-with-eureka: true #클라이언트로써 디스커버리 서버에 등록하는 것.
+    fetch-registry: true #클라이언트로써 eureka 서버에서 eureka 레지스트리 정보를 가져올지 여부를 설정
+    service-url:
+      default-zone: http://localhost:8761/eureka/ #유레카 서버에 해당하는 url을 써줘야 함. 
