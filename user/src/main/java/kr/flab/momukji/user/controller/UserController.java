@@ -2,11 +2,14 @@ package kr.flab.momukji.user.controller;
 
 import javax.validation.Valid;
 
+import kr.flab.momukji.user.dto.request.GetUserDto;
 import kr.flab.momukji.user.dto.request.UserDto;
 import kr.flab.momukji.user.dto.response.common.CommonResponse;
+import kr.flab.momukji.user.entity.User;
 import kr.flab.momukji.user.service.UserService;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,5 +27,10 @@ public class UserController {
     @PostMapping("/signup")
     public ResponseEntity<CommonResponse> signup(@Valid @RequestBody UserDto userDto) {
         return ResponseEntity.ok(userService.signup(userDto));
+    }
+
+    @GetMapping("/getUser")
+    public User getUser(@RequestBody GetUserDto userDto) {
+        return userService.getUser(userDto.getEmail());
     }
 }
