@@ -4,6 +4,14 @@ server:
 spring:
   application:
     name: auth
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:testdb;MODE=MYSQL;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
 
 #스프링 유레카 클라이언트 구축
 eureka:
@@ -11,4 +19,11 @@ eureka:
     register-with-eureka: true #클라이언트로써 디스커버리 서버에 등록하는 것.
     fetch-registry: true #클라이언트로써 eureka 서버에서 eureka 레지스트리 정보를 가져올지 여부를 설정
     service-url:
-      default-zone: http://localhost:8761/eureka/ #유레카 서버에 해당하는 url을 써줘야 함. 
+      default-zone: http://localhost:8761/eureka/ #유레카 서버에 해당하는 url을 써줘야 함.
+
+jwt:
+  header: Authorization
+  # echo 'silvernine-tech-spring-boot-jwt-tutorial-secret-silvernine-tech-spring-boot-jwt-tutorial-secret'|base64
+  # TODO 배포 시 secret 값 새로 만들어 외부로 분리하기
+  secret: c2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQtc2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQK
+  token-validity-in-seconds: 86400
