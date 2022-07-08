@@ -54,12 +54,6 @@ public class User {
     @Column(name = "deleted", nullable = false)
     private Boolean deleted;
 
-    @Column(name = "store_id", nullable = true)
-    private Long storeId;
-
-    @Column(name = "rider_id", nullable = true)
-    private Long riderId;
-
     @CreationTimestamp
     @Column(name = "created_timestamp", nullable = false)
     private LocalDateTime createdTimestamp;
