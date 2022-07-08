@@ -49,4 +49,8 @@ public class UserService {
     public User getUserWithAuthorities(String email) {
         return userRepository.findOneWithAuthoritiesByEmail(email).orElse(null);
     }
+
+    public User getUser(String email) {
+        return userRepository.findOneWithAuthoritiesByEmail(email).orElse(null);
+    }
 }
