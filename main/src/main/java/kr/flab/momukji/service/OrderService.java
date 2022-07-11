@@ -18,6 +18,7 @@ import kr.flab.momukji.entity.Product;
 import kr.flab.momukji.entity.Rider;
 import kr.flab.momukji.entity.Store;
 import kr.flab.momukji.repository.OrderRepository;
+import kr.flab.momukji.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -26,11 +27,10 @@ public class OrderService {
 
     private final StoreService storeService;
     private final ProductService productService;
-    private final UserService userService;
     
     private final OrderRepository orderRepository;
 
-    public CommonResponse order(@Valid @RequestBody OrderDto orderDto) {
+    public CommonResponse order(@Valid @RequestBody OrderDto orderDto, String token) {
         Optional<Store> optStore = storeService.getStoreById(orderDto.getStoreId());
         if (optStore.isEmpty()) {
             return new CommonResponse(ResultCode.INVALID_STORE_ID);
@@ -48,7 +48,7 @@ public class OrderService {
 
         Order order = Order.builder()
             .store(store)
-            .user(userService.getMyUserWithAuthorities())
+            .userId(new SecurityUtil().getEmailByToken(token))
             .status(OrderStatus.PENDING.getStatusCode())
             .isDelivery(orderDto.isDelivery())
             .message(orderDto.getMessage())

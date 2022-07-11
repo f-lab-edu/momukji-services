@@ -3,6 +3,7 @@ package kr.flab.momukji.controller;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,7 +15,7 @@ import kr.flab.momukji.service.RiderService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/apiRider")
+@RequestMapping("/api")
 @RequiredArgsConstructor
 public class RiderController {
     
@@ -22,9 +23,8 @@ public class RiderController {
     private final OrderService orderService;
 
     @PutMapping("/acceptRider")
-    @PreAuthorize("hasAnyRole('USER')")
-    public CommonResponse acceptDelivery(@RequestBody RiderDto riderDto) {
-        return riderService.accecptDelivery(riderDto);
+    public CommonResponse acceptDelivery(@RequestBody RiderDto riderDto, @RequestHeader("Token") String token) {
+        return riderService.accecptDelivery(riderDto, token);
     }
 
     @PutMapping("/pickUpRider")

@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 
 @RestController
@@ -21,9 +22,8 @@ public class CustomerController {
     private final OrderService orderService;
 
     @PostMapping("/order")
-    @PreAuthorize("hasAnyRole('USER')")
-    public CommonResponse order(@RequestBody OrderDto orderDto) {
-        return orderService.order(orderDto);
+    public CommonResponse order(@RequestBody OrderDto orderDto, @RequestHeader("Token") String token) {
+        return orderService.order(orderDto, token);
     }
 
 }
