@@ -52,6 +52,9 @@ public class Store {
     @Column(name = "is_open", nullable = false)
     private Boolean isOpen;
 
+    @Column(name = "user_id", nullable = false, unique = true)
+    private String userId;
+
     @ColumnDefault("false")
     @Column(name = "deleted", nullable = false)
     private Boolean deleted;
