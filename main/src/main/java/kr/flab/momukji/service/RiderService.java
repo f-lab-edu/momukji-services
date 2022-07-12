@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import kr.flab.momukji.dto.request.RiderDto;
 import kr.flab.momukji.dto.response.common.CommonResponse;
+import kr.flab.momukji.dto.response.common.ResultCode;
 import kr.flab.momukji.entity.Rider;
 import kr.flab.momukji.repository.RiderRepository;
 import kr.flab.momukji.util.SecurityUtil;
@@ -23,7 +24,17 @@ public class RiderService {
     private final RiderRepository riderRepository;
 
     public CommonResponse accecptDelivery(@Valid @RequestBody RiderDto riderDto, String token) {
-        Rider rider = getRiderByUserEmail(new SecurityUtil().getEmailByToken(token)).get();
+        if (token.isEmpty()) {
+            return new CommonResponse(ResultCode.LOGIN_REQUIRED);
+        }
+        
+        String email = new SecurityUtil().getEmailByToken(token);
+        Optional<Rider> optRider = getRiderByUserEmail(email);
+        if (optRider.isEmpty()) {
+            return new CommonResponse(ResultCode.INVALID_ACCOUNT);
+        }
+
+        Rider rider = optRider.get();
         return orderService.changeOrderInfoForRider(riderDto.getOrderId(), rider);
     }
 
