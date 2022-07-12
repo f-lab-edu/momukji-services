@@ -52,8 +52,8 @@ public class Store {
     @Column(name = "is_open", nullable = false)
     private Boolean isOpen;
 
-    @Column(name = "user_id", nullable = false, unique = true)
-    private String userId;
+    @Column(name = "user_email", nullable = false, unique = true)
+    private String userEmail;
 
     @ColumnDefault("false")
     @Column(name = "deleted", nullable = false)

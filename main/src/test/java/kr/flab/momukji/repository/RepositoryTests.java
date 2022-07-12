@@ -43,7 +43,7 @@ public class RepositoryTests {
             .region(region)
             .category(category)
             .name("상점 이름")
-            .userId("useridtest")
+            .userEmail("useridtest")
             .isOpen(false)
             .deleted(false)
             .build()
@@ -63,7 +63,7 @@ public class RepositoryTests {
         products.add(product);
 
         Order order = orderRepository.save(Order.builder()
-            .userId("userid")
+            .userEmail("userid")
             .store(store)
             .status(0L)
             .isDelivery(true)

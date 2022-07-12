@@ -33,8 +33,8 @@ public class Rider {
     @Column(name = "is_working", nullable = true)
     private Boolean isWorking;
 
-    @Column(name = "user_id", nullable = false, unique = true)
-    private String userId;
+    @Column(name = "user_email", nullable = false, unique = true)
+    private String userEmail;
 
     @ColumnDefault("false")
     @Column(name = "deleted", nullable = false)

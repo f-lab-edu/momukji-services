@@ -48,7 +48,7 @@ public class OrderService {
 
         Order order = Order.builder()
             .store(store)
-            .userId(new SecurityUtil().getEmailByToken(token))
+            .userEmail(new SecurityUtil().getEmailByToken(token))
             .status(OrderStatus.PENDING.getStatusCode())
             .isDelivery(orderDto.isDelivery())
             .message(orderDto.getMessage())

@@ -23,12 +23,12 @@ public class RiderService {
     private final RiderRepository riderRepository;
 
     public CommonResponse accecptDelivery(@Valid @RequestBody RiderDto riderDto, String token) {
-        Rider rider = getRiderByUserId(new SecurityUtil().getEmailByToken(token)).get();
+        Rider rider = getRiderByUserEmail(new SecurityUtil().getEmailByToken(token)).get();
         return orderService.changeOrderInfoForRider(riderDto.getOrderId(), rider);
     }
 
-    public Optional<Rider> getRiderByUserId(String userId) {
-        return riderRepository.findByUserId(userId);
+    public Optional<Rider> getRiderByUserEmail(String userEmail) {
+        return riderRepository.findByUserEmail(userEmail);
     }
 }
 
