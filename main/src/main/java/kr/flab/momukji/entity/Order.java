@@ -37,8 +37,8 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_id", nullable = false)
-    private String userId;
+    @Column(name = "user_email", nullable = false)
+    private String userEmail;
 
     @ManyToOne(targetEntity = Store.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id", nullable = false)
