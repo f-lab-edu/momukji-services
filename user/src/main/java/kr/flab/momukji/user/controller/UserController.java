@@ -5,7 +5,6 @@ import javax.validation.Valid;
 import kr.flab.momukji.user.dto.request.GetUserDto;
 import kr.flab.momukji.user.dto.request.UserDto;
 import kr.flab.momukji.user.dto.response.common.CommonResponse;
-import kr.flab.momukji.user.entity.User;
 import kr.flab.momukji.user.service.UserService;
 
 import org.springframework.http.ResponseEntity;
@@ -30,7 +29,7 @@ public class UserController {
     }
 
     @GetMapping("/getUser")
-    public User getUser(@RequestBody GetUserDto userDto) {
-        return userService.getUser(userDto.getEmail());
+    public CommonResponse getUser(@RequestBody GetUserDto userDto) {
+        return userService.getUser(userDto);
     }
 }
