@@ -6,21 +6,17 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import kr.flab.momukji.entity.Category;
 import kr.flab.momukji.entity.Order;
 import kr.flab.momukji.entity.Product;
 import kr.flab.momukji.entity.Region;
 import kr.flab.momukji.entity.Store;
-import kr.flab.momukji.entity.User;
 
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@ExtendWith(SpringExtension.class)
 @DataJpaTest
 public class RepositoryTests {
     @Autowired
@@ -32,12 +28,10 @@ public class RepositoryTests {
     @Autowired
     private ProductRepository productRepository;
     @Autowired
-    private UserRepository userRepository;
-    @Autowired
     private OrderRepository orderRepository;
 
     @Test
-    void saveAndfindById_RegionCategoryStoreProductUserOrder() {
+    void saveAndfindById_RegionCategoryStoreProductOrder() {
         Region region = regionRepository.save(Region.builder().name("지역").build());
         assertEquals(region, regionRepository.findById(region.getId()).get());
         
@@ -49,6 +43,7 @@ public class RepositoryTests {
             .region(region)
             .category(category)
             .name("상점 이름")
+            .userEmail("useridtest")
             .isOpen(false)
             .deleted(false)
             .build()
@@ -64,22 +59,11 @@ public class RepositoryTests {
         );
         assertEquals(product, productRepository.findById(product.getId()).get());
 
-        User user = userRepository.save(User.builder()
-            .email("email@email.com")
-            .password("password")
-            .contact("010-0000-0000")
-            .address("주소")
-            .money(0L)
-            .deleted(false)
-            .build()
-        );
-        assertEquals(user, userRepository.findById(user.getId()).get());
-
         Set<Product> products = new HashSet<>();
         products.add(product);
 
         Order order = orderRepository.save(Order.builder()
-            .user(user)
+            .userEmail("userid")
             .store(store)
             .status(0L)
             .isDelivery(true)
