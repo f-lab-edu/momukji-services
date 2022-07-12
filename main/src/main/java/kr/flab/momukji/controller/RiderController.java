@@ -1,6 +1,5 @@
 package kr.flab.momukji.controller;
 
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -28,15 +27,13 @@ public class RiderController {
     }
 
     @PutMapping("/pickUpRider")
-    @PreAuthorize("hasAnyRole('USER')")
-    public CommonResponse pickUp(@RequestBody RiderDto riderDto) {
-        return orderService.pickUp(riderDto.getOrderId());
+    public CommonResponse pickUp(@RequestBody RiderDto riderDto, @RequestHeader("Token") String token) {
+        return orderService.pickUp(riderDto.getOrderId(), token);
     }
 
     @PutMapping("/completeOrder")
-    @PreAuthorize("hasAnyRole('USER')")
-    public CommonResponse completeOrder(@RequestBody RiderDto riderDto) {
-        return orderService.completeOrder(riderDto.getOrderId());
+    public CommonResponse completeOrder(@RequestBody RiderDto riderDto, @RequestHeader("Token") String token) {
+        return orderService.completeOrder(riderDto.getOrderId(), token);
     }
 }
 

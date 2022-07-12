@@ -2,9 +2,9 @@ package kr.flab.momukji.controller;
 
 import javax.validation.Valid;
 
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,18 +18,17 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api")
 @RequiredArgsConstructor
 public class StoreController {
+    
     private final OrderService orderService;
 
     @PutMapping("/acceptOrder")
-    @PreAuthorize("hasAnyRole('USER')")
-    public CommonResponse acceptOrder(@Valid @RequestBody AcceptOrderDto acceptDto) {
-        return orderService.acceptOrder(acceptDto.getOrderId(), acceptDto.getEstimatedMinutes());
+    public CommonResponse acceptOrder(@Valid @RequestBody AcceptOrderDto acceptDto, @RequestHeader("Token") String token) {
+        return orderService.acceptOrder(acceptDto.getOrderId(), acceptDto.getEstimatedMinutes(), token);
     }
 
     @PutMapping("/requestRider")
-    @PreAuthorize("hasAnyRole('USER')")
-    public CommonResponse requestRider(@Valid @RequestBody RequestRiderDto requestDto) {
-        return orderService.requestRider(requestDto.getOrderId());
+    public CommonResponse requestRider(@Valid @RequestBody RequestRiderDto requestDto, @RequestHeader("Token") String token) {
+        return orderService.requestRider(requestDto.getOrderId(), token);
     }
 
 }
