@@ -17,7 +17,7 @@ public class AuthTestController {
     private final UserTestService userTestService;
     
     @GetMapping("/api/callUser")
-    public CommonResponse getUser(@RequestBody GetUserDto getUserDto) {
+    public CommonResponse callUser(@RequestBody GetUserDto getUserDto) {
         System.out.println(getUserDto.getAuthCode()+ "수민" +getUserDto.getEmail());
         return userTestService.callUser(getUserDto);
     }
