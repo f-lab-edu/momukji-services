@@ -13,6 +13,10 @@ spring:
     username: sa
     password:
 
+momukji:
+  auth:
+    authCode: code
+
 #스프링 유레카 클라이언트 구축
 eureka:
   client:
