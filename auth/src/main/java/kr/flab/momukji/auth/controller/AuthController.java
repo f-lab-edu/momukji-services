@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import kr.flab.momukji.auth.dto.request.ValidateDto;
 import kr.flab.momukji.auth.dto.response.CommonResponse;
 
 import kr.flab.momukji.auth.service.JwtService;
@@ -18,7 +19,7 @@ public class AuthController {
     private final JwtService jwtService;
     
     @PostMapping("/validate")
-    public CommonResponse checkValidate(@RequestBody String token) {
-        return jwtService.checkToken(token);
+    public CommonResponse checkValidate(@RequestBody ValidateDto validateDto) {
+        return jwtService.checkToken(validateDto.getToken());
     }
 }
