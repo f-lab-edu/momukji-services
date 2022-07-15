@@ -57,12 +57,12 @@ public class UserService {
         return userRepository.findOneWithAuthoritiesByEmail(email).orElse(null);
     }
 
-    public CommonResponse getUser(GetUserDto userDto) {
-        if (!userDto.getAuthCode().equals(authCode)) {
+    public CommonResponse getUser(String authCode, String email) {
+        if (!authCode.equals(authCode)) {
             return new CommonResponse(ResultCode.INVALID_AUTH_CODE);
         }
 
-        Optional<User> optUser = userRepository.findOneWithAuthoritiesByEmail(userDto.getEmail());
+        Optional<User> optUser = userRepository.findOneWithAuthoritiesByEmail(email);
         if (optUser.isEmpty()) {
             return new CommonResponse(ResultCode.EMAIL_NOT_EXIST);
         }
