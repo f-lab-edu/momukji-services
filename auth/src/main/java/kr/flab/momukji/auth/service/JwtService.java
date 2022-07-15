@@ -15,10 +15,10 @@ public class JwtService {
     public CommonResponse checkToken(String token) {
 
         if(!tokenProvider.validateToken(token)) {
-            return new CommonResponse(ResultCode.INVALID);
+            return new CommonResponse(ResultCode.INVALID_TOKEN);
         }
 
-        return new CommonResponse(ResultCode.VALID);
+        return new CommonResponse(ResultCode.VALID_TOKEN);
     }
     
 }
