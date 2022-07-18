@@ -2,7 +2,6 @@ package kr.flab.momukji.user.controller;
 
 import javax.validation.Valid;
 
-import kr.flab.momukji.user.dto.request.GetUserDto;
 import kr.flab.momukji.user.dto.request.UserDto;
 import kr.flab.momukji.user.dto.response.common.CommonResponse;
 import kr.flab.momukji.user.service.UserService;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -29,7 +29,7 @@ public class UserController {
     }
 
     @GetMapping("/getUser")
-    public CommonResponse getUser(@RequestBody GetUserDto userDto) {
-        return userService.getUser(userDto);
+    public CommonResponse getUser(@RequestParam String authCode, @RequestParam String email) {
+        return userService.getUser(authCode, email);
     }
 }
