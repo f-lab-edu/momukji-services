@@ -34,11 +34,11 @@ public class AuthController {
 
     @GetMapping("/callUser")
     public CallUserDto callUser(@RequestBody GetUserDto getUserDto) {
-        return  userCallService.callUser(getUserDto).getBody();
+        return userCallService.callUser(getUserDto).getBody();
     }
 
-    @PostMapping("/authenticate")
+    @PostMapping("/login")
     public ResponseEntity<TokenDto> authorize(@Valid @RequestBody LoginDto loginDto) {
-        return  jwtService.authorize(loginDto);
+        return jwtService.authorize(loginDto);
     }
 }
