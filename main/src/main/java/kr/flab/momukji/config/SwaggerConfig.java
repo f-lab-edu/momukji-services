@@ -11,8 +11,10 @@ import springfox.documentation.spring.web.plugins.Docket;
 
 @Configuration
 public class SwaggerConfig {
+
     @Bean
     public Docket api() {
+
         return new Docket(DocumentationType.OAS_30)
                 .useDefaultResponseMessages(false)
                 .select()
@@ -23,6 +25,7 @@ public class SwaggerConfig {
     }
 
     private ApiInfo apiInfo() {
+        
         return new ApiInfoBuilder()
                 .title("mo-muk-ji")
                 .description("배달중개 뭐 먹지? API")

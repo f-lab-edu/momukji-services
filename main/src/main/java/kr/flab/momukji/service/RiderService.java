@@ -24,6 +24,7 @@ public class RiderService {
     private final RiderRepository riderRepository;
 
     public CommonResponse accecptDelivery(@Valid @RequestBody RiderDto riderDto, String token) {
+        
         if (token.isEmpty()) {
             return new CommonResponse(ResultCode.LOGIN_REQUIRED);
         }

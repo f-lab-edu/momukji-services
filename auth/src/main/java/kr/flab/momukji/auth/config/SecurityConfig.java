@@ -27,6 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
+
         httpSecurity
             .csrf().disable()
 
@@ -60,8 +61,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web
-            .ignoring()
+        
+        web .ignoring()
             .antMatchers("/h2-console/**", "/favicon.ico",
                             "/v3/api-docs",  "/configuration/ui",
                             "/swagger-resources", "/configuration/security",

@@ -5,9 +5,11 @@ import lombok.Getter;
 
 @Getter
 public class UserResponse extends CommonResponse {
+
     private User user;
 
     public UserResponse(User user) {
+        
         this.resultCode = ResultCode.SUCCESS;
         this.user = user;
     }

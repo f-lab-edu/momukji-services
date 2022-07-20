@@ -21,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class UserService {
+
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -29,6 +30,7 @@ public class UserService {
 
     @Transactional
     public CommonResponse signup(UserDto userDto) {
+
         if (userRepository.findOneWithAuthoritiesByEmail(userDto.getEmail()).orElse(null) != null) {
             return new CommonResponse(ResultCode.DUPLICATED_EMAIL);
         }
@@ -57,6 +59,7 @@ public class UserService {
     }
 
     public CommonResponse getUser(String authCode, String email) {
+        
         if (!authCode.equals(authCode)) {
             return new CommonResponse(ResultCode.INVALID_AUTH_CODE);
         }

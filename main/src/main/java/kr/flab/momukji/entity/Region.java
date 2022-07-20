@@ -24,6 +24,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Region {
+    
     @Id
     @Column(name = "region_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

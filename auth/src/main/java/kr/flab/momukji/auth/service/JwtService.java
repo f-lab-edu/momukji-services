@@ -48,5 +48,4 @@ public class JwtService {
 
         return new ResponseEntity<>(new TokenDto(jwt), httpHeaders, HttpStatus.OK);
     }
-    
 }

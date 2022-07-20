@@ -25,6 +25,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class StoreInfo {
+    
     @Id
     @Column(name = "info_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
