@@ -25,6 +25,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(final String email) {
+
         GetUserDto getUserDto = new GetUserDto(email, "code");
         CallUserDto result = userServiceClient.getUser(getUserDto).getBody();
        
@@ -37,6 +38,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     private org.springframework.security.core.userdetails.User createUser(String username, User user) {
+        
         if (user.getDeleted()) {
             throw new RuntimeException(username + " -> 활성화되어 있지 않습니다.");
         }

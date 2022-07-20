@@ -16,6 +16,7 @@ public class SecurityUtil {
     private static final Logger logger = LoggerFactory.getLogger(SecurityUtil.class);
  
     public static Optional<String> getCurrentUsername() {
+      
        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
  
        if (authentication == null) {

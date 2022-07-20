@@ -11,5 +11,4 @@ public class RiderDto {
 
     @NotNull
     private Long orderId;
-    
 }

@@ -8,6 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AcceptOrderDto {
+    
     @NotNull
     private Long orderId;
     

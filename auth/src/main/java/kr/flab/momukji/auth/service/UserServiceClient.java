@@ -13,6 +13,5 @@ public interface UserServiceClient {
 
     @GetMapping(value = "/api/getUser")
     public ResponseEntity<CallUserDto> getUser(@SpringQueryMap GetUserDto userDto);
-    
 }
  

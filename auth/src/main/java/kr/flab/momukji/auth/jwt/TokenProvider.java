@@ -41,17 +41,20 @@ public class TokenProvider implements InitializingBean {
     public TokenProvider(
             @Value("${jwt.secret}") String secret,
             @Value("${jwt.token-validity-in-seconds}") long tokenValidityInSeconds) {
+               
         this.secret = secret;
         this.tokenValidityInMilliseconds = tokenValidityInSeconds * 1000;
     }
 
     @Override
     public void afterPropertiesSet() {
+
         byte[] keyBytes = Decoders.BASE64.decode(secret);
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
     public String createToken(Authentication authentication) {
+
         String authorities = authentication.getAuthorities().stream()
            .map(GrantedAuthority::getAuthority)
            .collect(Collectors.joining(","));
@@ -68,6 +71,7 @@ public class TokenProvider implements InitializingBean {
     }
 
      public Authentication getAuthentication(String token) {
+
         Claims claims = Jwts
                 .parserBuilder()
                 .setSigningKey(key)
@@ -86,6 +90,7 @@ public class TokenProvider implements InitializingBean {
     }
 
     public boolean validateToken(String token) {
+      
         try {
            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
            return true;

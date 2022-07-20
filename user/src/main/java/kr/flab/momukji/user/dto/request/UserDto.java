@@ -20,6 +20,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDto {
+
     @NotNull
     @Size(max = 100)
     private String email;
@@ -55,5 +56,4 @@ public class UserDto {
             .money(user.getMoney())
             .build();
     }
-
 }

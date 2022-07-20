@@ -24,5 +24,4 @@ public class CustomerController {
     public CommonResponse order(@RequestBody OrderDto orderDto, @RequestHeader("Token") String token) {
         return orderService.order(orderDto, token);
     }
-
 }

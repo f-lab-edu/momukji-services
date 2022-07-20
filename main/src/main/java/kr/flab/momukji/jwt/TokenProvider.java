@@ -16,18 +16,19 @@ public class TokenProvider implements InitializingBean {
     private final String secret;
     private Key key;
 
-    public TokenProvider(
-            @Value("${jwt.secret}") String secret) {
+    public TokenProvider(@Value("${jwt.secret}") String secret) {
         this.secret = secret;
     }
 
     @Override
     public void afterPropertiesSet() {
+
         byte[] keyBytes = Decoders.BASE64.decode(secret);
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
     public String getPrincipal(String token) {
+
         Claims claims = Jwts
             .parserBuilder()
             .setSigningKey(key)

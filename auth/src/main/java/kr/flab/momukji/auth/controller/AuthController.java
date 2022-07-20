@@ -27,7 +27,6 @@ public class AuthController {
     private final JwtService jwtService;
     private final UserCallService userCallService;
 
-    
     @PostMapping("/validate")
     public CommonResponse checkValidate(@RequestBody ValidateDto validateDto) {
         return jwtService.checkToken(validateDto.getToken());

@@ -13,5 +13,4 @@ public class GetUserDto {
 
     private String email;
     private String authCode;
-    
 }

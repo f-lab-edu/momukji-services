@@ -6,6 +6,7 @@ import lombok.Getter;
 
 @Getter
 public class ValidateDto {
+    
     @NotNull
     private String token;
 }

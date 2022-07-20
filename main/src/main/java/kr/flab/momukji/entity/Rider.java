@@ -25,6 +25,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Rider {
+    
     @Id
     @Column(name = "rider_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

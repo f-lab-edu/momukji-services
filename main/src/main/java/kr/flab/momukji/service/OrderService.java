@@ -31,6 +31,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
 
     public CommonResponse order(@Valid @RequestBody OrderDto orderDto, String token) {
+
         if (token.isEmpty()) {
             return new CommonResponse(ResultCode.LOGIN_REQUIRED);
         }
@@ -70,6 +71,7 @@ public class OrderService {
     }
     
     public CommonResponse changeOrderInfoForRider(Long orderId, Rider rider) {
+
         Order order = getOrderById(orderId).get();
         order.setRider(rider);
         order.setStatus(OrderStatus.RIDER_ACCEPTED.getStatusCode());
@@ -79,6 +81,7 @@ public class OrderService {
     }
 
     public CommonResponse pickUp(Long orderId, String token) {
+
         if (token.isEmpty()) {
             return new CommonResponse(ResultCode.LOGIN_REQUIRED);
         }
@@ -97,6 +100,7 @@ public class OrderService {
     }
 
     public CommonResponse completeOrder(Long orderId, String token) {
+
         if (token.isEmpty()) {
             return new CommonResponse(ResultCode.LOGIN_REQUIRED);
         }
@@ -119,6 +123,7 @@ public class OrderService {
     }
 
     public CommonResponse acceptOrder(Long orderId, Long estimatedMinutes, String token) {
+
         if (token.isEmpty()) {
             return new CommonResponse(ResultCode.LOGIN_REQUIRED);
         }
@@ -144,6 +149,7 @@ public class OrderService {
     
 
     public CommonResponse requestRider(Long orderId, String token) {
+
         if (token.isEmpty()) {
             return new CommonResponse(ResultCode.LOGIN_REQUIRED);
         }
@@ -166,6 +172,7 @@ public class OrderService {
     }
 
     enum OrderStatus {
+        
         PENDING(0L), ACCEPTED(1L), RIDER_REQUESTED(2L), COOKED(3L), RIDER_ACCEPTED(4L), PICKUPED(5L), COMPLETED(4L), CANCELED(-1L);
 
         private Long statusCode;
