@@ -8,6 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RequestRiderDto {
+    
     @NotNull
     Long orderId;
 }

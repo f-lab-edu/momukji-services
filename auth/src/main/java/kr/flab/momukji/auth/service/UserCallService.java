@@ -16,5 +16,4 @@ public class UserCallService {
     public ResponseEntity<CallUserDto> callUser(GetUserDto userDto) {
         return userServiceClient.getUser(userDto);
     }
-    
 }

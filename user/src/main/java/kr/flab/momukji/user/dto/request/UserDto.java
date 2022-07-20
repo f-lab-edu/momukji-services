@@ -44,6 +44,7 @@ public class UserDto {
     private Set<AuthorityDto> authorityDtoSet;
 
     public static UserDto from(User user) {
+        
         if(user == null) return null;
 
         return UserDto.builder()
