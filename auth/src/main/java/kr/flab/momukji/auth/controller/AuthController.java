@@ -37,7 +37,7 @@ public class AuthController {
         return  userCallService.callUser(getUserDto).getBody();
     }
 
-    @PostMapping("/authenticate")
+    @PostMapping("/login")
     public ResponseEntity<TokenDto> authorize(@Valid @RequestBody LoginDto loginDto) {
         return  jwtService.authorize(loginDto);
     }
