@@ -35,5 +35,15 @@ public class RiderController {
     public CommonResponse completeOrder(@RequestBody RiderDto riderDto, @RequestHeader("Token") String token) {
         return orderService.completeOrder(riderDto.getOrderId(), token);
     }
+
+    @PutMapping("/riderOpen")
+    public CommonResponse openRiding(@RequestHeader("Token") String token) {
+        return riderService.updateRidingStatus(token, true);
+    }
+
+    @PutMapping("/riderClosed")
+    public CommonResponse closeRiding(@RequestHeader("Token") String token) {
+        return riderService.updateRidingStatus(token, false);
+    }
 }
 

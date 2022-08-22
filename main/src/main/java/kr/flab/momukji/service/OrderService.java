@@ -30,6 +30,8 @@ public class OrderService {
     
     private final OrderRepository orderRepository;
 
+    private final SecurityUtil securityUtil;
+
     public CommonResponse order(@Valid @RequestBody OrderDto orderDto, String token) {
 
         if (token.isEmpty()) {
@@ -41,7 +43,7 @@ public class OrderService {
             return new CommonResponse(ResultCode.INVALID_STORE_ID);
         }
 
-        String email = new SecurityUtil().getEmailByToken(token);
+        String email = securityUtil.getEmailByToken(token);
         Store store = optStore.get();
         if (!store.getUserEmail().equals(email)) {
             return new CommonResponse(ResultCode.INVALID_ACCOUNT);
@@ -58,7 +60,7 @@ public class OrderService {
 
         Order order = Order.builder()
             .store(store)
-            .userEmail(new SecurityUtil().getEmailByToken(token))
+            .userEmail(securityUtil.getEmailByToken(token))
             .status(OrderStatus.PENDING.getStatusCode())
             .isDelivery(orderDto.isDelivery())
             .message(orderDto.getMessage())
@@ -86,7 +88,7 @@ public class OrderService {
             return new CommonResponse(ResultCode.LOGIN_REQUIRED);
         }
         
-        String email = new SecurityUtil().getEmailByToken(token);
+        String email = securityUtil.getEmailByToken(token);
         Order order = getOrderById(orderId).get();
         if (!order.getUserEmail().equals(email)) {
             return new CommonResponse(ResultCode.INVALID_ACCOUNT);
@@ -105,7 +107,7 @@ public class OrderService {
             return new CommonResponse(ResultCode.LOGIN_REQUIRED);
         }
 
-        String email = new SecurityUtil().getEmailByToken(token);
+        String email = securityUtil.getEmailByToken(token);
         Order order = getOrderById(orderId).get();
         if (!order.getUserEmail().equals(email)) {
             return new CommonResponse(ResultCode.INVALID_ACCOUNT);
@@ -133,7 +135,7 @@ public class OrderService {
             return new CommonResponse(ResultCode.INVALID_ORDER_ID);
         }
         
-        String email = new SecurityUtil().getEmailByToken(token);
+        String email = securityUtil.getEmailByToken(token);
         Order order = optOrder.get();
         if (!order.getUserEmail().equals(email)) {
             return new CommonResponse(ResultCode.INVALID_ACCOUNT);
@@ -159,7 +161,7 @@ public class OrderService {
             return new CommonResponse(ResultCode.INVALID_ORDER_ID);
         }
         
-        String email = new SecurityUtil().getEmailByToken(token);
+        String email = securityUtil.getEmailByToken(token);
         Order order = optOrder.get();
         if (!order.getUserEmail().equals(email)) {
             return new CommonResponse(ResultCode.INVALID_ACCOUNT);
