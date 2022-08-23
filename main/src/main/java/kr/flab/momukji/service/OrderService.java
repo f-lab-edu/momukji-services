@@ -41,8 +41,12 @@ public class OrderService {
             return new CommonResponse(ResultCode.INVALID_STORE_ID);
         }
 
-        String email = new SecurityUtil().getEmailByToken(token);
         Store store = optStore.get();
+        if (!store.getIsOpen()) {
+            return new CommonResponse(ResultCode.STORE_CLOSED);
+        }
+        
+        String email = new SecurityUtil().getEmailByToken(token);
         if (!store.getUserEmail().equals(email)) {
             return new CommonResponse(ResultCode.INVALID_ACCOUNT);
         }
