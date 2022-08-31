@@ -23,13 +23,15 @@ public class RiderService {
     
     private final RiderRepository riderRepository;
 
+    private final SecurityUtil securityUtil;
+
     public CommonResponse accecptDelivery(@Valid @RequestBody RiderDto riderDto, String token) {
         
         if (token.isEmpty()) {
             return new CommonResponse(ResultCode.LOGIN_REQUIRED);
         }
         
-        String email = new SecurityUtil().getEmailByToken(token);
+        String email = securityUtil.getEmailByToken(token);
         Optional<Rider> optRider = getRiderByUserEmail(email);
         if (optRider.isEmpty()) {
             return new CommonResponse(ResultCode.INVALID_ACCOUNT);
@@ -41,6 +43,25 @@ public class RiderService {
 
     public Optional<Rider> getRiderByUserEmail(String userEmail) {
         return riderRepository.findByUserEmail(userEmail);
+    }
+
+    public CommonResponse updateRidingStatus(String token, boolean status) {
+
+        if (token.isEmpty()) {
+            return new CommonResponse(ResultCode.LOGIN_REQUIRED);
+        }
+        
+        String email = securityUtil.getEmailByToken(token);
+        Optional<Rider> optRider = getRiderByUserEmail(email);
+        if (optRider.isEmpty()) {
+            return new CommonResponse(ResultCode.INVALID_ACCOUNT);
+        }
+
+        Rider rider = optRider.get();
+        rider.setIsWorking(status);
+        riderRepository.save(rider);
+        
+        return new CommonResponse();
     }
 }
 
