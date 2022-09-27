@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: momukji-user-app
+  labels:
+    app: webapp
+  namespace: default
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 8083
+    targetPort: 8083
+    protocol: TCP
+    name: http
+  selector:
+    app: webapp
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: momukji-user-rs
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: webapp
+      tier: app
+  template:
+    metadata:
+      labels:
+        app: webapp
+        tier: app
+    spec:
+      containers:
+        - name: momukji-user
+          image: momukji-user:44437b6
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8083
+              protocol: TCP

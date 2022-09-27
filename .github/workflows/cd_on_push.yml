@@ -1,0 +1,49 @@
+name: Deploy on Push
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Deploy
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SERVER_URL }}
+        port: ${{ secrets.SERVER_PORT }}
+        username: ${{ secrets.SERVER_ID }}
+        password: ${{ secrets.SERVER_PW }}
+        envs: GITHUB_SHA
+        script: |
+          rm -rf momukji-services/
+          git clone https://github.com/deepredk/momukji-services.git
+          cd momukji-services/main
+          rm src/main/resources/application.yml
+          cp ../../secrets/application-main.yml src/main/resources/application.yml
+          ./gradlew build -x test
+          docker build -t momukji-main:${GITHUB_SHA::7} .
+          docker save momukji-main:${GITHUB_SHA::7} | ctr -a /run/k3s/containerd/containerd.sock -n=k8s.io images import -
+          kubectl delete -f momukji-main.yml
+          sh change_version.sh ${GITHUB_SHA::7}
+          kubectl apply -f momukji-main.yml
+          cd ../user
+          rm src/main/resources/application.yml
+          cp ../../secrets/application-user.yml src/main/resources/application.yml
+          ./gradlew build -x test
+          docker build -t momukji-user:${GITHUB_SHA::7} .
+          docker save momukji-user:${GITHUB_SHA::7} | ctr -a /run/k3s/containerd/containerd.sock -n=k8s.io images import -
+          kubectl delete -f momukji-user.yml
+          sh change_version.sh ${GITHUB_SHA::7}
+          kubectl apply -f momukji-user.yml
+          cd ../auth
+          rm src/main/resources/application.yml
+          cp ../../secrets/application-auth.yml src/main/resources/application.yml
+          ./gradlew build -x test
+          docker build -t momukji-auth:${GITHUB_SHA::7} .
+          docker save momukji-auth:${GITHUB_SHA::7} | ctr -a /run/k3s/containerd/containerd.sock -n=k8s.io images import -
+          kubectl delete -f momukji-auth.yml
+          sh change_version.sh ${GITHUB_SHA::7}
+          kubectl apply -f momukji-auth.yml
