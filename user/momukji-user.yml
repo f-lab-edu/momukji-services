@@ -20,7 +20,7 @@ kind: Deployment
 metadata:
   name: momukji-user-rs
 spec:
-  replicas: 3
+  replicas: 2
 
   selector:
     matchLabels:
